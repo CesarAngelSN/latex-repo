@@ -1,0 +1,235 @@
+% ============================================================
+%  test-latex.tex — Mini tutorial de LaTeX
+%  Los comentarios empiezan con % y no aparecen en el PDF.
+%  Compila con:  pdflatex test-latex.tex
+% ============================================================
+
+% ---------- PREÁMBULO ----------
+% Todo lo que va antes de \begin{document} es el preámbulo:
+% declaras el tipo de documento y cargas paquetes.
+\documentclass[12pt,a4paper]{article} % tipos: article, report, book, letter, beamer (diapositivas)
+
+\usepackage[utf8]{inputenc}     % codificación (acentos, ñ)
+\usepackage[spanish]{babel}    % reglas tipográficas en español
+\usepackage{amsmath, amssymb}  % matemáticas: entornos y símbolos extra
+\usepackage{xcolor}           % colores de texto
+\usepackage{hyperref}         % enlaces clicables y referencias
+\usepackage{graphicx}         % insertar imágenes (\includegraphics)
+\usepackage{listings}         % bloques de código
+
+\title{Tutorial de \LaTeX{}}
+\author{César}
+\date{\today} % \today = fecha de hoy; puedes poner texto fijo
+
+% ---------- DOCUMENTO ----------
+\begin{document}
+
+\maketitle   % imprime título, autor y fecha
+
+\tableofcontents % índice automático (compila 2 veces para actualizarlo)
+
+\newpage
+
+% ============================================================
+\section{Estructura del documento}
+% ============================================================
+La jerarquía de secciones es:
+\begin{verbatim}
+\part{}  \chapter{} (solo report/book)  \section{}
+\subsection{}  \subsubsection{}  \paragraph{}
+\end{verbatim}
+Con un asterisco la sección no lleva número ni sale en el índice:
+\texttt{\textbackslash section*\{Sin numerar\}}
+
+\subsection{Una subsección}
+Los párrafos se separan dejando una línea en blanco.
+Los espacios múltiples      se      ignoran, y los saltos de línea
+simples también. Para forzar un salto de línea usa \texttt{\textbackslash\textbackslash} \\
+y para una página nueva \texttt{\textbackslash newpage}.
+
+% ============================================================
+\section{Formato de texto}
+% ============================================================
+\begin{itemize}
+  \item \textbf{Negrita} → \texttt{\textbackslash textbf\{...\}}
+  \item \textit{Cursiva} → \texttt{\textbackslash textit\{...\}}
+  \item \underline{Subrayado} → \texttt{\textbackslash underline\{...\}}
+  \item \texttt{Monoespaciada} → \texttt{\textbackslash texttt\{...\}}
+  \item \emph{Énfasis} (cursiva que se anida bien) → \texttt{\textbackslash emph\{...\}}
+  \item \textsc{Capitulares} → \texttt{\textbackslash textsc\{...\}}
+  \item {\color{red} Texto en color} → \texttt{\{\textbackslash color\{red\} ...\}} (requiere \texttt{xcolor})
+\end{itemize}
+
+Tamaños relativos:
+{\tiny tiny} {\scriptsize scriptsize} {\footnotesize footnotesize}
+{\small small} {\normalsize normalsize} {\large large} {\Large Large}
+{\huge huge} {\Huge Huge}
+
+% ============================================================
+\section{Listas}
+% ============================================================
+Lista con viñetas (\texttt{itemize}):
+\begin{itemize}
+  \item Primer elemento
+  \item Segundo elemento
+  \begin{itemize}
+    \item Se pueden anidar
+  \end{itemize}
+\end{itemize}
+
+Lista numerada (\texttt{enumerate}):
+\begin{enumerate}
+  \item Primero
+  \item Segundo
+  \begin{enumerate}
+    \item Sub-punto
+  \end{enumerate}
+\end{enumerate}
+
+Lista de descripciones (\texttt{description}):
+\begin{description}
+  \item[LaTeX] Sistema de composición tipográfica.
+  \item[pdflatex] Compilador que genera PDF directamente.
+\end{description}
+
+% ============================================================
+\section{Matemáticas}
+% ============================================================
+Fórmula \textbf{en línea} con \$...\$: la ecuación $E = mc^2$ queda
+dentro del párrafo. También vale \texttt{\textbackslash( ... \textbackslash)}: \(a^2+b^2=c^2\).
+
+Fórmula \textbf{destacada} con \texttt{\textbackslash[ ... \textbackslash]}:
+\[
+  \int_0^{\infty} e^{-x^2}\,dx = \frac{\sqrt{\pi}}{2}
+\]
+
+Con numeración usa el entorno \texttt{equation}:
+\begin{equation}
+  x = \frac{-b \pm \sqrt{b^2 - 4ac}}{2a}
+  \label{eq:cuadratica}
+\end{equation}
+y la citas así: la ecuación~\eqref{eq:cuadratica} es la fórmula cuadrática
+(\texttt{\textbackslash label} + \texttt{\textbackslash eqref} o \texttt{\textbackslash ref}).
+
+\subsection{Piezas habituales}
+\begin{itemize}
+  \item Fracción: $\frac{a}{b}$ → \texttt{\textbackslash frac\{a\}\{b\}}
+  \item Sub/superíndices: $x_1$, $x^2$, $x_1^2$ → \texttt{x\_1}, \texttt{x\^{}2}
+  \item Raíz: $\sqrt{x}$, $\sqrt[3]{x}$ → \texttt{\textbackslash sqrt\{x\}}, \texttt{\textbackslash sqrt[3]\{x\}}
+  \item Suma y producto: $\sum_{i=1}^{n} i$, $\prod_{k=1}^{n} k$
+  \item Integral: $\int_a^b f(x)\,dx$
+  \item Límite: $\lim_{x \to 0} \frac{\sin x}{x} = 1$
+  \item Letras griegas: $\alpha, \beta, \pi, \Omega$ → \texttt{\textbackslash alpha}, \texttt{\textbackslash Omega}
+  \item Relaciones: $\leq, \geq, \neq, \approx, \in, \subset$
+  \item Operadores lógicos: $\forall, \exists, \Rightarrow, \Leftrightarrow$
+\end{itemize}
+
+Matrices con \texttt{pmatrix} (paréntesis), \texttt{bmatrix} (corchetes):
+\[
+  A = \begin{pmatrix} a & b \\ c & d \end{pmatrix},
+  \quad
+  B = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}
+\]
+
+Varias ecuaciones alineadas con \texttt{align*} (\& marca la alineación,
+* quita la numeración):
+\begin{align*}
+  (a+b)^2 &= (a+b)(a+b) \\
+          &= a^2 + 2ab + b^2
+\end{align*}
+
+% ============================================================
+\section{Tablas}
+% ============================================================
+El entorno \texttt{tabular} define las columnas:
+\texttt{l} = izquierda, \texttt{c} = centro, \texttt{r} = derecha,
+\texttt{|} = línea vertical, \texttt{\textbackslash hline} = línea horizontal.
+
+\begin{center}
+\begin{tabular}{|l|c|r|}
+  \hline
+  \textbf{Nombre} & \textbf{Tipo} & \textbf{Valor} \\
+  \hline
+  pi     & constante & 3.1416 \\
+  e      & constante & 2.7183 \\
+  phi    & constante & 1.6180 \\
+  \hline
+\end{tabular}
+\end{center}
+
+Con \texttt{p\{4cm\}} la columna tiene ancho fijo y ajusta el texto.
+El entorno \texttt{table} + \texttt{\textbackslash caption} hace la tabla
+``flotante'' y con número (la posiciona \LaTeX{} donde quede mejor).
+
+% ============================================================
+\section{Imágenes}
+% ============================================================
+Necesitas \texttt{graphicx} y el archivo de imagen junto al .tex:
+\begin{verbatim}
+\begin{figure}[h]        % h = aquí, t = arriba, b = abajo, p = página
+  \centering
+  \includegraphics[width=0.8\textwidth]{imagen.png}
+  \caption{Pie de foto}
+  \label{fig:ejemplo}
+\end{figure}
+% y luego: ver la figura~\ref{fig:ejemplo}
+\end{verbatim}
+
+% ============================================================
+\section{Enlaces y referencias}
+% ============================================================
+Con \texttt{hyperref}:
+\begin{itemize}
+  \item Web: \url{https://www.latex-project.org} → \texttt{\textbackslash url\{...\}}
+  \item Con texto: \href{https://www.overleaf.com/learn}{documentación de Overleaf}
+        → \texttt{\textbackslash href\{url\}\{texto\}}
+  \item Referencia interna: la sección~\ref{sec:codigo} habla de código
+        → \texttt{\textbackslash label} + \texttt{\textbackslash ref}
+\end{itemize}
+
+% ============================================================
+\section{Código fuente}
+\label{sec:codigo}
+% ============================================================
+En línea: \verb|print("hola")| con \texttt{\textbackslash verb|...|}.
+
+Bloque con \texttt{verbatim} (tal cual, sin formato) o \texttt{lstlisting}
+(con colores, del paquete \texttt{listings}):
+\begin{lstlisting}[language=Python]
+def fibonacci(n):
+    a, b = 0, 1
+    for _ in range(n):
+        yield a
+        a, b = b, a + b
+\end{lstlisting}
+
+% ============================================================
+\section{Citas y notas al pie}
+% ============================================================
+Texto citado largo con \texttt{quote}:
+\begin{quote}
+  ``LaTeX es el estándar de facto para documentos científicos.''
+\end{quote}
+
+Una nota al pie se inserta en medio del texto\footnote{Así se ve una
+nota al pie: \texttt{\textbackslash footnote\{...\}}.}.
+
+Para bibliografía real se usa BibTeX/Biber con un archivo \texttt{.bib}
+y comandos \texttt{\textbackslash cite\{clave\}}.
+
+% ============================================================
+\section{Trucos finales}
+% ============================================================
+\begin{itemize}
+  \item Caracteres especiales, escápalos con \texttt{\textbackslash}:
+        \% \$ \& \# \_ \{ \}
+  \item Espacio irrompible (no se corta la línea): \texttt{sección\textasciitilde\textbackslash ref\{...\}}
+  \item Puntos suspensivos correctos: \ldots{} → \texttt{\textbackslash ldots}
+  \item Comillas tipográficas: ``dobles'' y `simples'
+  \item Comentar varias líneas rápido: selecciona y usa \texttt{\%} al inicio
+        (en la mayoría de editores, Ctrl+/)
+  \item Errores de compilación: lee el \texttt{.log}; el error real suele
+        estar en la primera línea que menciona.
+\end{itemize}
+
+\end{document}
