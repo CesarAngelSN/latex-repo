@@ -1,0 +1,13 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Estructura del documento}{2}{section.1}%
+\contentsline {subsection}{\numberline {1.1}Una subsección}{2}{subsection.1.1}%
+\contentsline {section}{\numberline {2}Formato de texto}{2}{section.2}%
+\contentsline {section}{\numberline {3}Listas}{2}{section.3}%
+\contentsline {section}{\numberline {4}Matemáticas}{3}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Piezas habituales}{3}{subsection.4.1}%
+\contentsline {section}{\numberline {5}Tablas}{4}{section.5}%
+\contentsline {section}{\numberline {6}Imágenes}{4}{section.6}%
+\contentsline {section}{\numberline {7}Enlaces y referencias}{5}{section.7}%
+\contentsline {section}{\numberline {8}Código fuente}{5}{section.8}%
+\contentsline {section}{\numberline {9}Citas y notas al pie}{5}{section.9}%
+\contentsline {section}{\numberline {10}Trucos finales}{5}{section.10}%
